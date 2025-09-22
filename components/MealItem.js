@@ -16,7 +16,7 @@ function MealItem({
   affordability,
 }) {
   return (
-    <View key={id} style={styles.mealItem}>
+    <View style={styles.mealItem}>
       <View style={styles.innerContainer}>
         <Pressable
           android_ripple={{ color: "#ccc" }}
