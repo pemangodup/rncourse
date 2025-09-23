@@ -27,6 +27,8 @@ function MealsOverViewScreen({ route, navigation }) {
 
   function renderMealItem(itemData) {
     const item = itemData.item;
+
+    // Creating an object of props
     const mealItemProps = {
       id: item.id,
       title: item.title,

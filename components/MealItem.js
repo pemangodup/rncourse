@@ -7,6 +7,8 @@ import {
   Platform,
 } from "react-native";
 
+import { useNavigation } from "@react-navigation/native";
+
 function MealItem({
   id,
   title,
@@ -15,26 +17,42 @@ function MealItem({
   complexity,
   affordability,
 }) {
+  //Navigating from child component use the useNavigation hook
+  const navigation = useNavigation();
+
+  // Creating this function so it is executed when the pressable is pressed
+  function selectMealHandler() {
+    // Passing data through a params while navigating to other components
+    navigation.navigate("MealDetail", {
+      mealId: id,
+    });
+  }
+
   return (
     <View style={styles.mealItem}>
-      <View style={styles.innerContainer}>
-        <Pressable
-          android_ripple={{ color: "#ccc" }}
-          style={({ pressed }) => {
-            pressed ? styles.buttonPressed : null;
-          }}
-        >
-          <Image source={{ uri: imageUrl }} style={styles.image} />
+      <Pressable
+        android_ripple={{ color: "#ccc" }}
+        style={({ pressed }) => {
+          pressed ? styles.buttonPressed : null;
+        }}
+        onPress={selectMealHandler}
+      >
+        <View style={styles.innerContainer}>
           <View>
-            <Text style={styles.title}>{title}</Text>
+            <Image source={{ uri: imageUrl }} style={styles.image} />
+            <View>
+              <Text style={styles.title}>{title}</Text>
+            </View>
+            <View style={styles.details}>
+              <Text style={styles.detailItem}>{duration}</Text>
+              <Text style={styles.detailItem}>{complexity.toUpperCase()}</Text>
+              <Text style={styles.detailItem}>
+                {affordability.toUpperCase()}
+              </Text>
+            </View>
           </View>
-          <View style={styles.details}>
-            <Text style={styles.detailItem}>{duration}</Text>
-            <Text style={styles.detailItem}>{complexity.toUpperCase()}</Text>
-            <Text style={styles.detailItem}>{affordability.toUpperCase()}</Text>
-          </View>
-        </Pressable>
-      </View>
+        </View>
+      </Pressable>
     </View>
   );
 }
